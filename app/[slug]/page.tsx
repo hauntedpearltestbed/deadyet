@@ -33,7 +33,7 @@ export default async function PersonPage({ params }: Props) {
 
   const years =
     person.birthYear != null
-      ? `${person.birthYear} – ${person.deathYear ?? "??"}`
+      ? `${person.birthYear} – ${person.deathYear ?? "20??"}`
       : "Year unknown";
 
   return (
