@@ -96,14 +96,14 @@ export function SearchBox({ people }: SearchBoxProps) {
             <ul
               id="search-results"
               role="listbox"
-              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 min-w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50"
+              className="absolute top-full mt-2 left-1/2 -translate-x-1/2 min-w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50 flex flex-col"
             >
               {filtered.map((person) => (
-                <li key={person.slug} role="option">
+                <li key={person.slug} role="option" className="m-0 p-0">
                   <button
                     type="button"
                     onClick={() => navigateTo(person.slug)}
-                    className="w-full text-left px-4 py-2 hover:bg-foreground/10 transition-colors text-base whitespace-nowrap leading-none"
+                    className="w-full text-center px-4 py-1.5 hover:bg-foreground/10 transition-colors text-base whitespace-nowrap leading-none"
                   >
                     {person.name}
                   </button>
