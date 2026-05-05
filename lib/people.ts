@@ -952,7 +952,7 @@ const SEED: ReadonlyArray<SeedPerson> = [
     name: "God in Christianity",
     wikipediaTitle: "God_in_Christianity",
     description:
-      "In Christianity, God is regarded as the eternal, supreme being who created and preserves all things. Christians believe in one monotheistic God who exists as a Trinity of three Persons—the Father, the Son (Jesus), and the Holy Spirit—and who became immanent in the world through the Incarnation, in which God the Son assumed human nature.",
+      "God is dead. God remains dead. And we have killed him. -Friedrich Nietzsche",
     alignment: "evil",
     fallback: { birthYear: null, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg/330px-By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg" },
   },
