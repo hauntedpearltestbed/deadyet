@@ -4,7 +4,7 @@ export interface SeedPerson {
   slug: string;
   name: string;
   wikipediaTitle: string;
-  description: string;
+  description?: string;
   alignment: Alignment;
   fallback: {
     birthYear: number;

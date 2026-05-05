@@ -53,7 +53,7 @@ export async function getPerson(
   return {
     slug: seed.slug,
     name: seed.name,
-    description: seed.description,
+    description: seed.description ?? summary?.extract ?? "",
     birthYear,
     deathYear,
     status,
