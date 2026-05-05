@@ -17,16 +17,20 @@ export function SearchBox({ people }: SearchBoxProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
   const [open, setOpen] = useState(false);
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [isFocused, setIsFocused] = useState(true);
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
+  const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
   const fuse = useMemo(
     () =>
       new Fuse(people, {
         keys: ["name"],
-        threshold: 0.35,
-        minMatchCharLength: 1,
-        ignoreLocation: true,
+        threshold: 0.15,
+        minMatchCharLength: 2,
+        ignoreLocation: false,
+        distance: 60,
       }),
     [people],
   );
@@ -34,8 +38,19 @@ export function SearchBox({ people }: SearchBoxProps) {
   const filtered = useMemo(() => {
     const trimmed = query.trim();
     if (!trimmed) return [];
-    return fuse.search(trimmed).map((r) => r.item);
+    return fuse.search(trimmed, { limit: 5 }).map((r) => r.item);
   }, [query, fuse]);
+
+  useEffect(() => {
+    setActiveIndex(0);
+  }, [filtered]);
+
+  useEffect(() => {
+    const el = itemRefs.current[activeIndex];
+    if (el) {
+      el.scrollIntoView({ block: "nearest" });
+    }
+  }, [activeIndex]);
 
   const navigateTo = useCallback(
     (slug: string) => {
@@ -59,8 +74,22 @@ export function SearchBox({ people }: SearchBoxProps) {
   }, []);
 
   function handleKeyDown(e: React.KeyboardEvent<HTMLInputElement>) {
-    if (e.key === "Enter" && filtered.length > 0) {
-      navigateTo(filtered[0].slug);
+    if (e.key === "ArrowDown") {
+      e.preventDefault();
+      if (!open) {
+        setOpen(true);
+        return;
+      }
+      setActiveIndex((i) => (i + 1 < filtered.length ? i + 1 : i));
+    } else if (e.key === "ArrowUp") {
+      e.preventDefault();
+      if (!open) {
+        setOpen(true);
+        return;
+      }
+      setActiveIndex((i) => (i > 0 ? i - 1 : i));
+    } else if (e.key === "Enter" && filtered.length > 0) {
+      navigateTo(filtered[activeIndex].slug);
     } else if (e.key === "Escape") {
       setOpen(false);
     }
@@ -73,6 +102,11 @@ export function SearchBox({ people }: SearchBoxProps) {
       <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight whitespace-nowrap">
         Is{" "}
         <span className="relative inline-block">
+          {!isFocused && !query && (
+            <span className="absolute inset-0 flex items-center justify-center text-sm opacity-40 pointer-events-none select-none">
+              click to search
+            </span>
+          )}
           <input
             ref={inputRef}
             type="text"
@@ -81,7 +115,11 @@ export function SearchBox({ people }: SearchBoxProps) {
               setQuery(e.target.value);
               setOpen(true);
             }}
-            onFocus={() => setOpen(true)}
+            onFocus={() => {
+              setIsFocused(true);
+              setOpen(true);
+            }}
+            onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
             className="inline-block bg-transparent border-b-2 border-foreground text-center min-w-[4ch] max-w-[24ch] px-1 py-0 text-inherit font-inherit tracking-tight"
             style={{ width: `${Math.max(4, displayQuery.length)}ch` }}
@@ -91,6 +129,9 @@ export function SearchBox({ people }: SearchBoxProps) {
             aria-autocomplete="list"
             aria-controls="search-results"
             aria-expanded={open}
+            aria-activedescendant={
+              open && filtered.length > 0 ? `search-option-${filtered[activeIndex]?.slug}` : undefined
+            }
           />
           {open && filtered.length > 0 && (
             <ul
@@ -98,12 +139,26 @@ export function SearchBox({ people }: SearchBoxProps) {
               role="listbox"
               className="absolute top-full mt-2 left-1/2 -translate-x-1/2 min-w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50 flex flex-col text-base"
             >
-              {filtered.map((person) => (
-                <li key={person.slug} role="option" className="m-0 p-0">
+              {filtered.map((person, index) => (
+                <li
+                  key={person.slug}
+                  id={`search-option-${person.slug}`}
+                  role="option"
+                  aria-selected={index === activeIndex}
+                  className="m-0 p-0"
+                >
                   <button
+                    ref={(el) => {
+                      itemRefs.current[index] = el;
+                    }}
                     type="button"
                     onClick={() => navigateTo(person.slug)}
-                    className="w-full text-center px-4 py-1.5 hover:bg-foreground/10 transition-colors text-xl whitespace-nowrap leading-none"
+                    onMouseEnter={() => setActiveIndex(index)}
+                    className={`w-full text-center px-4 py-1.5 transition-colors text-xl whitespace-nowrap leading-none ${
+                      index === activeIndex
+                        ? "bg-foreground/10"
+                        : "hover:bg-foreground/10"
+                    }`}
                   >
                     {person.name}
                   </button>
@@ -116,7 +171,7 @@ export function SearchBox({ people }: SearchBoxProps) {
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 min-w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50">
               <a
                 href="/submit"
-                className="block w-full px-4 py-2 text-sm underline hover:bg-foreground/10 transition-colors text-center leading-none"
+                className="block w-full px-4 py-2 text-xl underline hover:bg-foreground/10 transition-colors text-center leading-none"
               >
                 Request an addition
               </a>

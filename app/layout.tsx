@@ -13,8 +13,28 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Is ___ dead yet?",
-  description: "Tracking the worst people in history. Red means bad. Green means good.",
+  metadataBase: new URL("https://deadyet.wtf"),
+  title: {
+    default: "Is ___ dead yet?",
+    template: "%s | Is ___ dead yet?",
+  },
+  description:
+    "Check if notable people — heroes and villains, leaders and legends — are still alive or dead. Simple facts, no spin.",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    siteName: "Is ___ dead yet?",
+  },
+  twitter: {
+    card: "summary_large_image",
+  },
+  robots: {
+    index: true,
+    follow: true,
+  },
+  alternates: {
+    canonical: "/",
+  },
 };
 
 export default function RootLayout({
