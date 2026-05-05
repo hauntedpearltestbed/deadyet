@@ -948,8 +948,8 @@ const SEED: ReadonlyArray<SeedPerson> = [
     fallback: { birthYear: 1965, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Robert_Downey_Jr._2014_Comic-Con.jpg/330px-Robert_Downey_Jr._2014_Comic-Con.jpg" },
   },
   {
-    slug: "god-in-christianity",
-    name: "God in Christianity",
+    slug: "god",
+    name: "God",
     wikipediaTitle: "God_in_Christianity",
     description:
       "God is dead. God remains dead. And we have killed him. -Friedrich Nietzsche",
