@@ -24,7 +24,7 @@ export default function AboutPage() {
         <div className="space-y-6 text-lg leading-relaxed">
           <p>
             This site answers a simple question with a simple answer: is this person dead yet?
-            No obituaries, no editorializing, no softening the blow. Just the status.
+            No obituaries, no softening the blow. The status is factual. The framing is ours.
           </p>
 
           <p>
