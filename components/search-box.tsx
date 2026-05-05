@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useRef, useEffect, useCallback } from "react";
+import { useState, useRef, useEffect, useCallback, useMemo } from "react";
 import { useRouter } from "next/navigation";
+import Fuse from "fuse.js";
 
 interface PersonOption {
   slug: string;
@@ -19,11 +20,22 @@ export function SearchBox({ people }: SearchBoxProps) {
   const inputRef = useRef<HTMLInputElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const filtered = query.trim()
-    ? people.filter((p) =>
-        p.name.toLowerCase().includes(query.toLowerCase()),
-      )
-    : [];
+  const fuse = useMemo(
+    () =>
+      new Fuse(people, {
+        keys: ["name"],
+        threshold: 0.35,
+        minMatchCharLength: 1,
+        ignoreLocation: true,
+      }),
+    [people],
+  );
+
+  const filtered = useMemo(() => {
+    const trimmed = query.trim();
+    if (!trimmed) return [];
+    return fuse.search(trimmed).map((r) => r.item);
+  }, [query, fuse]);
 
   const navigateTo = useCallback(
     (slug: string) => {
@@ -54,7 +66,7 @@ export function SearchBox({ people }: SearchBoxProps) {
     }
   }
 
-  const displayQuery = query || " ";
+  const displayQuery = query || " ";
 
   return (
     <div ref={containerRef} className="relative inline-flex flex-col items-center">
