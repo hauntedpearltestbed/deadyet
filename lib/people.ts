@@ -83,6 +83,24 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "evil",
     fallback: { birthYear: 1946, deathYear: null },
   },
+  {
+    slug: "martin-luther-king-jr",
+    name: "Martin Luther King Jr.",
+    wikipediaTitle: "Martin_Luther_King_Jr.",
+    description:
+      "American Baptist minister and activist who became the most visible spokesman and leader in the civil rights movement from 1955 until his assassination in 1968. Advocated for nonviolent resistance and won the Nobel Peace Prize in 1964.",
+    alignment: "good",
+    fallback: { birthYear: 1929, deathYear: 1968 },
+  },
+  {
+    slug: "barack-obama",
+    name: "Barack Obama",
+    wikipediaTitle: "Barack_Obama",
+    description:
+      "44th President of the United States and the first African American to hold the office. Oversaw the passage of the Affordable Care Act, the killing of Osama bin Laden, and the legalization of same-sex marriage nationwide. Awarded the Nobel Peace Prize in 2009.",
+    alignment: "good",
+    fallback: { birthYear: 1961, deathYear: null },
+  },
 ];
 
 for (const person of SEED) {
