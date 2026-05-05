@@ -1,6 +1,6 @@
 # Is ___ dead yet?
 
-![Screenshot](./public/screenshot.png?v=2)
+![Screenshot](./public/WebScreenshot.png)
 
 **Live site:** [deadyet.wtf](https://deadyet.wtf)
 
