@@ -98,7 +98,7 @@ export function SearchBox({ people }: SearchBoxProps) {
         <ul
           id="search-results"
           role="listbox"
-          className="absolute top-full mt-2 w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50"
+          className="absolute top-full mt-2 left-1/2 -translate-x-1/2 w-fit max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50"
         >
           {filtered.map((person) => (
             <li key={person.slug} role="option">

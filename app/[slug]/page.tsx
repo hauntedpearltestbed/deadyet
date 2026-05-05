@@ -47,7 +47,7 @@ export default async function PersonPage({ params }: Props) {
           href="/"
           className="text-sm text-muted hover:text-foreground transition-colors mb-8 inline-block"
         >
-          ← Back
+          ← Search someone else
         </a>
 
         <div className="flex flex-col sm:flex-row gap-8 items-start">
