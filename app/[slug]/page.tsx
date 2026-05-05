@@ -87,7 +87,7 @@ export default async function PersonPage({ params }: Props) {
         <div className="w-full max-w-2xl">
           <a
             href="/"
-            className="text-sm text-muted hover:text-foreground transition-colors mb-8 inline-block"
+            className="text-sm text-foreground hover:text-muted transition-colors mb-8 inline-block"
           >
             ← Search someone else
           </a>

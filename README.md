@@ -14,6 +14,8 @@ No spin. No commentary. Just the cold, hard facts.
 
 A single-search site that answers life's most morbidly practical question about public figures. Type a name. Get a status. Move on with your day.
 
+You'll notice the color coding isn't just random. Some statuses feel like better news than others — that's intentional.
+
 ## How It Works
 
 - **Alive** or **Dead** — color-coded for your emotional convenience
@@ -23,7 +25,20 @@ A single-search site that answers life's most morbidly practical question about 
 
 ## Request an Addition
 
-Can't find someone? [Submit a request](https://deadyet.wtf/submit). The people (or their absence) are crowd-sourced.
+Can't find someone? [Submit a request](https://deadyet.wtf/submit) or [open an issue](https://github.com/hauntedpearltestbed/deadyet/issues). The roster is crowd-sourced — contribute who you want to see added.
+
+## FAQ
+
+- **Q: Why did you build this?**
+  - A: I was bored, why else?
+- **Q: How do you decide who gets added?**
+  - A: [User request](https://deadyet.wtf/submit).
+- **Q: What does the color coding mean?**
+  - A: Green = good thing. Red = bad thing.
+- **Q: The data looks wrong. How do I report it?**
+  - A: If it's a factual error, [submit a request](https://deadyet.wtf/submit). If your feelings are hurt, die mad.
+- **Q: Is this a political statement?**
+  - A: Isn't everything?
 
 ## Disclaimer
 
@@ -31,4 +46,4 @@ All data is pulled from public sources and updated automatically. This site is s
 
 ---
 
-*Built with Next.js, TypeScript, and a sense of civic duty.*
+*Built with Next.js, TypeScript, Wikipedia, Wikidata, and a sense of civic duty.*
