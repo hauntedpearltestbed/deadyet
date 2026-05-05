@@ -103,7 +103,7 @@ export function SearchBox({ people }: SearchBoxProps) {
                   <button
                     type="button"
                     onClick={() => navigateTo(person.slug)}
-                    className="w-full text-left px-4 py-3 hover:bg-foreground/10 transition-colors text-base whitespace-nowrap"
+                    className="w-full text-left px-4 py-2 hover:bg-foreground/10 transition-colors text-base whitespace-nowrap leading-none"
                   >
                     {person.name}
                   </button>
@@ -116,7 +116,7 @@ export function SearchBox({ people }: SearchBoxProps) {
             <div className="absolute top-full mt-2 left-1/2 -translate-x-1/2 min-w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50">
               <a
                 href="/submit"
-                className="block w-full px-4 py-3 text-sm underline hover:bg-foreground/10 transition-colors text-center"
+                className="block w-full px-4 py-2 text-sm underline hover:bg-foreground/10 transition-colors text-center leading-none"
               >
                 Request an addition
               </a>
