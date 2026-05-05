@@ -80,12 +80,6 @@ export default async function PersonPage({ params }: Props) {
 
             <p className="text-lg leading-relaxed mb-6">{person.description}</p>
 
-            {person.wikipediaExtract && (
-              <blockquote className="border-l-2 border-foreground/20 pl-4 text-muted italic mb-6">
-                {person.wikipediaExtract}
-              </blockquote>
-            )}
-
             <a
               href={person.wikipediaUrl}
               target="_blank"

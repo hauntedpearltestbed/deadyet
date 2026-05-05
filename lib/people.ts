@@ -66,6 +66,14 @@ const SEED: ReadonlyArray<SeedPerson> = [
       "King of the Belgians (1865–1909) and personal sovereign of the Congo Free State, where his regime of forced labor and atrocities killed an estimated 10 million Congolese.",
     fallback: { birthYear: 1835, deathYear: 1909 },
   },
+  {
+    slug: "donald-trump",
+    name: "Donald Trump",
+    wikipediaTitle: "Donald_Trump",
+    description:
+      "45th and 47th President of the United States. The first president impeached twice, indicted on 91 criminal charges across four jurisdictions, convicted on 34 felony counts in New York, and found liable for sexual abuse and defamation. Played a central role in the January 6th Capitol attack and refused to concede the 2020 election.",
+    fallback: { birthYear: 1946, deathYear: null },
+  },
 ];
 
 for (const person of SEED) {
