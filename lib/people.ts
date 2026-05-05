@@ -87,6 +87,8 @@ const SEED: ReadonlyArray<SeedPerson> = [
     slug: "martin-luther-king-jr",
     name: "Martin Luther King Jr.",
     wikipediaTitle: "Martin_Luther_King_Jr.",
+    description:
+      "Baptist minister and leader of the American civil rights movement. Advocated for nonviolent resistance to racial segregation and delivered the iconic 'I Have a Dream' speech. Awarded the Nobel Peace Prize in 1964. Assassinated in 1968.",
     alignment: "good",
     fallback: { birthYear: 1929, deathYear: 1968 },
   },
@@ -94,6 +96,8 @@ const SEED: ReadonlyArray<SeedPerson> = [
     slug: "barack-obama",
     name: "Barack Obama",
     wikipediaTitle: "Barack_Obama",
+    description:
+      "44th President of the United States (2009–2017) and the first African American to hold the office. Expanded healthcare access through the Affordable Care Act, oversaw the operation that killed Osama bin Laden, and signed the Lilly Ledbetter Fair Pay Act.",
     alignment: "good",
     fallback: { birthYear: 1961, deathYear: null },
   },
@@ -101,6 +105,8 @@ const SEED: ReadonlyArray<SeedPerson> = [
     slug: "dolly-parton",
     name: "Dolly Parton",
     wikipediaTitle: "Dolly_Parton",
+    description:
+      "Country music legend, singer-songwriter, actress, and philanthropist. Known for hits like 'Jolene' and 'I Will Always Love You,' and for founding the Imagination Library, which has donated over 200 million books to children worldwide.",
     alignment: "good",
     fallback: { birthYear: 1946, deathYear: null },
   },
@@ -904,6 +910,33 @@ const SEED: ReadonlyArray<SeedPerson> = [
       "Former pharmaceutical CEO. Raised the price of Daraprim by 5,000% overnight. Convicted in 2017 of securities fraud unrelated to the price hike.",
     alignment: "evil",
     fallback: { birthYear: 1983, deathYear: null },
+  },
+  {
+    slug: "benjamin-netanyahu",
+    name: "Benjamin Netanyahu",
+    wikipediaTitle: "Benjamin_Netanyahu",
+    description:
+      "Israeli politician who has served as Prime Minister of Israel for multiple terms totaling over 15 years. Overseeing the expansion of Israeli settlements, a controversial judicial overhaul, and military operations in Gaza that have killed tens of thousands of civilians.",
+    alignment: "evil",
+    fallback: { birthYear: 1949, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/7/74/Benjamin_Netanyahu%2C_February_2023.jpg/330px-Benjamin_Netanyahu%2C_February_2023.jpg" },
+  },
+  {
+    slug: "bob-marley",
+    name: "Bob Marley",
+    wikipediaTitle: "Bob_Marley",
+    description:
+      "Jamaican singer-songwriter and musician who became a global reggae icon. Pioneered the genre's international popularity with hits like 'No Woman, No Cry' and 'Redemption Song.' Advocated for peace, unity, and social justice through his music until his death from cancer in 1981.",
+    alignment: "good",
+    fallback: { birthYear: 1945, deathYear: 1981, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/2d/Bob_Marley_1976_press_photo.jpg/330px-Bob_Marley_1976_press_photo.jpg" },
+  },
+  {
+    slug: "michelle-obama",
+    name: "Michelle Obama",
+    wikipediaTitle: "Michelle_Obama",
+    description:
+      "Michelle Obama is an accomplished attorney, bestselling author, and advocate who served as First Lady of the United States from 2009 to 2017. She launched influential initiatives advancing childhood nutrition, education access, and military family support, and her memoir *Becoming* became one of the best-selling books of its kind. A graduate of Princeton University and Harvard Law School, she is celebrated globally for her eloquence, leadership, and steadfast commitment to empowering women and girls.",
+    alignment: "good",
+    fallback: { birthYear: 1964, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Michelle_Obama_2013_official_portrait.jpg/330px-Michelle_Obama_2013_official_portrait.jpg" },
   },
 ];
 
