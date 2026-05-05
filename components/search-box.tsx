@@ -103,7 +103,7 @@ export function SearchBox({ people }: SearchBoxProps) {
       )}
 
       {open && query.trim() && filtered.length === 0 && (
-        <div className="absolute top-full mt-2 w-full max-w-md bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50">
+        <div className="absolute top-full mt-2 w-fit bg-background border border-foreground/20 rounded shadow-xl overflow-hidden z-50">
           <a
             href="/submit"
             className="block w-full px-4 py-3 text-sm underline hover:bg-foreground/10 transition-colors"
