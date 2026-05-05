@@ -27,6 +27,8 @@ You'll notice the color coding isn't just random. Some statuses feel like better
 
 Can't find someone? [Submit a request](https://deadyet.wtf/submit) or [open an issue](https://github.com/hauntedpearltestbed/deadyet/issues). The roster is crowd-sourced — contribute who you want to see added.
 
+> **Note:** We only accept additions that are public or famous people. No adding your baby momma or abusive dad. (Fuck them, though.)
+
 ## FAQ
 
 - **Q: Why did you build this?**
