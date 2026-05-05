@@ -64,7 +64,7 @@ export default function AboutPage() {
             </p>
             <p>
               We only accept public figures or famous people. No adding your baby mama,
-              abusive dad, etc. (I agree, fuck them, though.)
+              abusive dad, etc. (Though I agree, fuck them.)
             </p>
 
             <h2 className="text-2xl font-bold tracking-tight mt-8 mb-4">Disclaimer</h2>

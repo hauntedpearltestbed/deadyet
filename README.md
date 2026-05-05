@@ -27,7 +27,7 @@ You'll notice the color coding isn't just random. Some statuses feel like better
 
 Can't find someone? [Submit a request](https://deadyet.wtf/submit) and tell me who you want to see added.
 
-> **Note:** We only accept additions that are public figures or famous. No adding your baby mama, abusive dad, etc. (I agree, fuck them, though.)
+> **Note:** We only accept additions that are public figures or famous. No adding your baby mama, abusive dad, etc. (Though I agree, fuck them.)
 
 ## FAQ
 

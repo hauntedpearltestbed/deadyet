@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getPerson } from "@/lib/get-person";
 import { Metadata } from "next";
 import { Footer } from "@/components/footer";
+import { FormattedDate } from "@/components/formatted-date";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -138,7 +139,7 @@ export default async function PersonPage({ params }: Props) {
               </a>
 
               <p className="text-xs text-muted mt-8">
-                Last checked: {new Date(person.lastUpdated).toLocaleString()}
+                Last checked: <FormattedDate isoString={person.lastUpdated} />
               </p>
             </div>
           </div>
