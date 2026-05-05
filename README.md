@@ -1,6 +1,6 @@
 # Is ___ dead yet?
 
-![Screenshot](/screenshot.png)
+![Screenshot](./public/screenshot.png)
 
 **Live site:** [deadyet.wtf](https://deadyet.wtf)
 
@@ -8,7 +8,7 @@
 
 A public service for the impatient. Check if notable people — heroes, villains, legends, and cautionary tales — are still breathing.
 
-No spin. No commentary. Just the cold, hard facts.
+Small spin. Small commentary. All facts.
 
 ## What This Is
 
