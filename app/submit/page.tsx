@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
+import { Footer } from "@/components/footer";
 
 interface FormState {
   name: string;
@@ -44,7 +45,8 @@ export default function SubmitPage() {
   }
 
   return (
-    <main className="flex flex-1 flex-col items-center px-4 py-12 sm:py-20">
+    <>
+      <main className="flex flex-1 flex-col items-center px-4 py-12 sm:py-20">
       <div className="w-full max-w-md">
         <Link
           href="/"
@@ -146,5 +148,7 @@ export default function SubmitPage() {
         )}
       </div>
     </main>
+    <Footer />
+  </>
   );
 }

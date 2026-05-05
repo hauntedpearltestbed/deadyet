@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { getPerson } from "@/lib/get-person";
 import { Metadata } from "next";
 import { ShareButton } from "@/components/share-button";
+import { Footer } from "@/components/footer";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -150,6 +151,7 @@ export default async function PersonPage({ params }: Props) {
           </div>
         </div>
       </main>
+      <Footer />
     </>
   );
 }
