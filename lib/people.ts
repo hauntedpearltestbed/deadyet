@@ -947,6 +947,15 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "good",
     fallback: { birthYear: 1965, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Robert_Downey_Jr._2014_Comic-Con.jpg/330px-Robert_Downey_Jr._2014_Comic-Con.jpg" },
   },
+  {
+    slug: "god-in-christianity",
+    name: "God in Christianity",
+    wikipediaTitle: "God_in_Christianity",
+    description:
+      "In Christianity, God is regarded as the eternal, supreme being who created and preserves all things. Christians believe in one monotheistic God who exists as a Trinity of three Persons—the Father, the Son (Jesus), and the Holy Spirit—and who became immanent in the world through the Incarnation, in which God the Son assumed human nature.",
+    alignment: "evil",
+    fallback: { birthYear: null, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg/330px-By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg" },
+  },
 ];
 
 for (const person of SEED) {
