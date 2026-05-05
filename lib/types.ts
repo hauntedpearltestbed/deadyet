@@ -1,8 +1,11 @@
+export type Alignment = "evil" | "good";
+
 export interface SeedPerson {
   slug: string;
   name: string;
   wikipediaTitle: string;
   description: string;
+  alignment: Alignment;
   fallback: {
     birthYear: number;
     deathYear: number | null;
@@ -17,6 +20,7 @@ export interface PersonView {
   birthYear: number | null;
   deathYear: number | null;
   status: "alive" | "dead";
+  alignment: Alignment;
   imageUrl: string | null;
   imageCredit: string | null;
   wikipediaUrl: string;

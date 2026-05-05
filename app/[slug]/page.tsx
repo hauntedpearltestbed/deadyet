@@ -27,9 +27,13 @@ export default async function PersonPage({ params }: Props) {
   const person = await getPerson(slug);
   if (!person) notFound();
 
-  const accent = person.status === "alive" ? "text-accent-bad" : "text-accent-good";
-  const border = person.status === "alive" ? "border-accent-bad" : "border-accent-good";
-  const bgAccent = person.status === "alive" ? "bg-accent-bad" : "bg-accent-good";
+  const isBadNews =
+    (person.alignment === "evil" && person.status === "alive") ||
+    (person.alignment === "good" && person.status === "dead");
+
+  const accent = isBadNews ? "text-accent-bad" : "text-accent-good";
+  const border = isBadNews ? "border-accent-bad" : "border-accent-good";
+  const bgAccent = isBadNews ? "bg-accent-bad" : "bg-accent-good";
 
   const years =
     person.birthYear != null

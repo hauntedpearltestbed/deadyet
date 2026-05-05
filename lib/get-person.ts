@@ -57,6 +57,7 @@ export async function getPerson(
     birthYear,
     deathYear,
     status,
+    alignment: seed.alignment,
     imageUrl,
     imageCredit: summary?.title ? `Image from Wikipedia` : null,
     wikipediaUrl,
