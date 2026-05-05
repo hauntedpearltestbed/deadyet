@@ -81,7 +81,7 @@ const SEED: ReadonlyArray<SeedPerson> = [
     description:
       "45th and 47th President of the United States. The first president impeached twice, indicted on 91 criminal charges across four jurisdictions, convicted on 34 felony counts in New York, and found liable for sexual abuse and defamation. Played a central role in the January 6th Capitol attack and refused to concede the 2020 election.",
     alignment: "evil",
-    fallback: { birthYear: 1946, deathYear: null },
+    fallback: { birthYear: 1946, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/en/c/c5/Donald_Trump_mug_shot.jpg" },
   },
   {
     slug: "martin-luther-king-jr",

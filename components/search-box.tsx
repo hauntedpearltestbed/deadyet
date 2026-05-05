@@ -99,7 +99,7 @@ export function SearchBox({ people }: SearchBoxProps) {
 
   return (
     <div ref={containerRef} className="relative inline-flex flex-col items-center">
-      <h1 className="text-4xl sm:text-6xl md:text-7xl font-bold tracking-tight whitespace-nowrap">
+      <h1 className="text-[clamp(1.5rem,5.5vw,2.25rem)] sm:text-6xl md:text-7xl font-bold tracking-tight text-wrap sm:whitespace-nowrap">
         Is{" "}
         <span className="relative inline-block">
           {!isFocused && !query && (
@@ -121,7 +121,7 @@ export function SearchBox({ people }: SearchBoxProps) {
             }}
             onBlur={() => setIsFocused(false)}
             onKeyDown={handleKeyDown}
-            className="inline-block bg-transparent border-b-2 border-foreground text-center min-w-[4ch] max-w-[24ch] px-1 py-0 text-inherit font-inherit tracking-tight"
+            className="inline-block bg-transparent border-b-2 border-foreground text-center min-w-[4ch] max-w-[14ch] sm:max-w-[24ch] px-1 py-0 text-inherit font-inherit tracking-tight"
             style={{ width: `${Math.max(4, displayQuery.length)}ch` }}
             placeholder=""
             autoComplete="off"
