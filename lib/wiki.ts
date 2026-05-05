@@ -20,7 +20,7 @@ export async function fetchWikipediaSummary(
   const encoded = encodeURIComponent(title.replace(/ /g, "_"));
   const url = `https://en.wikipedia.org/api/rest_v1/page/summary/${encoded}`;
 
-  try {
+  async function tryFetch(): Promise<WikipediaSummary | null> {
     const res = await fetch(url, {
       next: { revalidate: WIKIPEDIA_REVALIDATE_SECONDS },
     });
@@ -50,6 +50,16 @@ export async function fetchWikipediaSummary(
             })
           : undefined,
     };
+  }
+
+  try {
+    const first = await tryFetch();
+    if (first && (first.thumbnail || first.originalimage)) return first;
+    // Wikipedia's REST API occasionally returns incomplete responses on cold
+    // cache hits. A short retry usually gets the full data including images.
+    await new Promise((r) => setTimeout(r, 750));
+    const second = await tryFetch();
+    return second ?? first ?? null;
   } catch {
     return null;
   }

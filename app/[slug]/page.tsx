@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import { getPerson } from "@/lib/get-person";
 import { Metadata } from "next";
+import { ShareButton } from "@/components/share-button";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -126,15 +127,21 @@ export default async function PersonPage({ params }: Props) {
 
               <p className="text-lg leading-relaxed mb-6">{person.description}</p>
 
-              <a
-                href={person.wikipediaUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 underline hover:text-muted transition-colors"
-              >
-                Read more on Wikipedia
-                <span aria-hidden="true">↗</span>
-              </a>
+              <div className="flex flex-wrap items-center gap-4">
+                <a
+                  href={person.wikipediaUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 underline hover:text-muted transition-colors"
+                >
+                  Read more on Wikipedia
+                  <span aria-hidden="true">↗</span>
+                </a>
+                <ShareButton
+                  url={`https://deadyet.wtf/${person.slug}`}
+                  title={`Is ${person.name} dead yet?`}
+                />
+              </div>
 
               <p className="text-xs text-muted mt-8">
                 Last checked: {new Date(person.lastUpdated).toLocaleString()}
