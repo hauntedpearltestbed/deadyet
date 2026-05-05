@@ -938,6 +938,15 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "good",
     fallback: { birthYear: 1964, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4b/Michelle_Obama_2013_official_portrait.jpg/330px-Michelle_Obama_2013_official_portrait.jpg" },
   },
+  {
+    slug: "robert-downey-jr",
+    name: "Robert Downey Jr.",
+    wikipediaTitle: "Robert_Downey_Jr.",
+    description:
+      "Robert Downey Jr. is an acclaimed American actor renowned for his remarkable versatility and commanding screen presence across a wide spectrum of film roles. His performances have helped drive his films to gross over $14.3 billion worldwide, establishing him as one of the highest-grossing actors in cinematic history. He is the recipient of numerous prestigious honors, including an Academy Award, three Golden Globe Awards, and two British Academy Film Awards, reflecting his exceptional talent and enduring impact on the entertainment industry.",
+    alignment: "good",
+    fallback: { birthYear: 1965, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Robert_Downey_Jr._2014_Comic-Con.jpg/330px-Robert_Downey_Jr._2014_Comic-Con.jpg" },
+  },
 ];
 
 for (const person of SEED) {
