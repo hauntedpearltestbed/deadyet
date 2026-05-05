@@ -32,7 +32,7 @@ Can't find someone? [Submit a request](https://deadyet.wtf/submit) and tell me w
 ## FAQ
 
 - **Q: Why did you build this?**
-  - A: I was bored, why else?
+  - A: I was bored, curious, and opinionated.
 - **Q: How do you decide who gets added?**
   - A: [User request](https://deadyet.wtf/submit).
 - **Q: What does the color coding mean?**
@@ -48,4 +48,4 @@ All data is pulled from public sources and updated automatically. This site is s
 
 ---
 
-*Built with Next.js, TypeScript, Wikipedia, Wikidata, and a sense of civic duty.*
+*Built with Next.js, TypeScript, Wikipedia, Wikidata, and a sense morality.*
