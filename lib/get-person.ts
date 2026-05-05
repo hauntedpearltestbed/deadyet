@@ -38,7 +38,8 @@ export async function getPerson(
 
   const birthYear = wikidataDates.birthYear ?? seed.fallback.birthYear ?? null;
   const deathYear = wikidataDates.deathYear ?? seed.fallback.deathYear ?? null;
-  const status: "alive" | "dead" = deathYear ? "dead" : "alive";
+  const status: "alive" | "dead" =
+    seed.status ?? (deathYear ? "dead" : "alive");
 
   // Prefer thumbnail over originalimage — full-res images are multi-MB and often
   // fail to load on slow connections. Thumbnails are appropriately sized.

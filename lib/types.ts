@@ -6,8 +6,9 @@ export interface SeedPerson {
   wikipediaTitle: string;
   description?: string;
   alignment: Alignment;
+  status?: "alive" | "dead";
   fallback: {
-    birthYear: number;
+    birthYear: number | null;
     deathYear: number | null;
     imageUrl?: string;
   };
