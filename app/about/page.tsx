@@ -62,7 +62,7 @@ export default function AboutPage() {
               </a>
               . The roster is crowd-sourced — contribute who you want to see added.
             </p>
-            <p className="text-sm text-muted">
+            <p>
               We only accept public figures or famous people. No adding your baby mama,
               abusive dad, etc. (I agree, fuck them, though.)
             </p>
@@ -72,7 +72,7 @@ export default function AboutPage() {
               All data is pulled from public sources and updated automatically. This site
               is strictly informational — a pragmatic reference, not a wish list.
             </p>
-            <p className="text-sm text-muted">
+            <p>
               If the data looks wrong,{" "}
               <a
                 href="/submit"
