@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import { getPerson } from "@/lib/get-person";
 import { Metadata } from "next";
-import Image from "next/image";
 
 interface Props {
   params: Promise<{ slug: string }>;
@@ -48,14 +47,11 @@ export default async function PersonPage({ params }: Props) {
 
         <div className="flex flex-col sm:flex-row gap-8">
           {person.imageUrl && (
-            <div className="shrink-0 w-48 sm:w-56 relative min-h-[200px]">
-              <Image
+            <div className="shrink-0 relative">
+              <img
                 src={person.imageUrl}
                 alt={`Photo of ${person.name}`}
-                fill
-                sizes="(max-width: 640px) 100vw, 14rem"
-                className="rounded border-2 border-foreground/10 object-contain"
-                unoptimized
+                className="h-auto w-full max-h-80 sm:h-full sm:w-auto sm:max-h-none rounded border-2 border-foreground/10 block"
               />
               {person.imageCredit && (
                 <p className="absolute bottom-0 left-0 right-0 text-xs text-white/90 bg-black/50 px-2 py-1 rounded-b">
@@ -65,7 +61,7 @@ export default async function PersonPage({ params }: Props) {
             </div>
           )}
 
-          <div className="flex-1">
+          <div className="flex-1 min-w-0">
             <h1 className={`text-4xl sm:text-5xl font-bold tracking-tight mb-2 ${accent}`}>
               {person.name}
             </h1>
