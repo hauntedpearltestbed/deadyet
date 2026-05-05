@@ -46,19 +46,21 @@ export default async function PersonPage({ params }: Props) {
           ← Back
         </a>
 
-        <div className="flex flex-col sm:flex-row gap-8 items-start">
+        <div className="flex flex-col sm:flex-row gap-8">
           {person.imageUrl && (
-            <div className="shrink-0">
+            <div className="shrink-0 w-48 sm:w-56 relative min-h-[200px]">
               <Image
                 src={person.imageUrl}
                 alt={`Photo of ${person.name}`}
-                width={240}
-                height={300}
-                className="rounded border-2 border-foreground/10 object-cover"
+                fill
+                sizes="(max-width: 640px) 100vw, 14rem"
+                className="rounded border-2 border-foreground/10 object-contain"
                 unoptimized
               />
               {person.imageCredit && (
-                <p className="text-xs text-muted mt-2">{person.imageCredit}</p>
+                <p className="absolute bottom-0 left-0 right-0 text-xs text-white/90 bg-black/50 px-2 py-1 rounded-b">
+                  {person.imageCredit}
+                </p>
               )}
             </div>
           )}

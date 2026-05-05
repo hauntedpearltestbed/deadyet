@@ -58,7 +58,7 @@ export async function getPerson(
     deathYear,
     status,
     imageUrl,
-    imageCredit: summary?.title ? `Image from Wikipedia (${summary.title})` : null,
+    imageCredit: summary?.title ? `Image from Wikipedia` : null,
     wikipediaUrl,
     wikipediaExtract: summary?.extract ?? null,
     source: summary ? "wikipedia" : "fallback",
