@@ -20,14 +20,14 @@ You'll notice the color coding isn't just random. Some statuses feel like better
 
 - **Alive** or **Dead** — color-coded for your emotional convenience
 - Auto-generated pages for each entry
-- Photos, birth years, and the occasional mugshot
+- Status, birth year — death year, some info, and the occasional mugshot
 - Sourced from Wikipedia, because the crowd is usually right about these things
 
 ## Request an Addition
 
 Can't find someone? [Submit a request](https://deadyet.wtf/submit) and tell me who you want to see added.
 
-> **Note:** We only accept additions that are public or famous people. No adding your baby mama, abusive dad, etc. (Fuck them, though)
+> **Note:** We only accept additions that are public figures or famous. No adding your baby mama, abusive dad, etc. (I agree, fuck them, though.)
 
 ## FAQ
 
@@ -48,4 +48,4 @@ All data is pulled from public sources and updated automatically. This site is s
 
 ---
 
-*Built with Next.js, TypeScript, Wikipedia, Wikidata, and a sense morality.*
+*Built with Next.js, TypeScript, Wikipedia, Wikidata, and a sense of morality.*
