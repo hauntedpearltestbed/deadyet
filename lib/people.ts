@@ -954,6 +954,7 @@ const SEED: ReadonlyArray<SeedPerson> = [
     description:
       "God is dead. God remains dead. And we have killed him. -Friedrich Nietzsche",
     alignment: "evil",
+    status: "dead",
     fallback: { birthYear: null, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ee/By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg/330px-By_Dore%2C_Gustave%3B_La_Sainte_Trinite.jpg" },
   },
 ];
