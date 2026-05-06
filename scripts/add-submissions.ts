@@ -225,6 +225,67 @@ async function getExistingSlugs(): Promise<Set<string>> {
   return slugs;
 }
 
+function parseExistingPeople(content: string): Array<{
+  slug: string;
+  name: string;
+  wikipediaTitle: string;
+  description: string;
+  alignment: string;
+}> {
+  const people: Array<{
+    slug: string;
+    name: string;
+    wikipediaTitle: string;
+    description: string;
+    alignment: string;
+  }> = [];
+  const lines = content.split("\n");
+  let current: Record<string, string> = {};
+  let inEntry = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed === "{") {
+      inEntry = true;
+      current = {};
+    } else if (trimmed === "},") {
+      if (inEntry && current.slug) {
+        people.push({
+          slug: current.slug,
+          name: current.name ?? "",
+          wikipediaTitle: current.wikipediaTitle ?? "",
+          description: current.description ?? "",
+          alignment: current.alignment ?? "",
+        });
+      }
+      inEntry = false;
+      current = {};
+    } else if (inEntry) {
+      const slugMatch = trimmed.match(/^slug:\s*"([^"]+)"/);
+      const nameMatch = trimmed.match(/^name:\s*"([^"]+)"/);
+      const wikiMatch = trimmed.match(/^wikipediaTitle:\s*"([^"]+)"/);
+      const alignMatch = trimmed.match(/^alignment:\s*"([^"]+)"/);
+      const descMatch = trimmed.match(/^description:\s*"([^"]*)"/);
+
+      if (slugMatch) current.slug = slugMatch[1];
+      if (nameMatch) current.name = nameMatch[1];
+      if (wikiMatch) current.wikipediaTitle = wikiMatch[1];
+      if (alignMatch) current.alignment = alignMatch[1];
+      if (descMatch) {
+        current.description = descMatch[1];
+      } else if (trimmed === "description:") {
+        if (i + 1 < lines.length) {
+          const nextTrimmed = lines[i + 1].trim();
+          const m = nextTrimmed.match(/^"([^"]*)",?$/);
+          if (m) current.description = m[1];
+        }
+      }
+    }
+  }
+
+  return people;
+}
+
 function extractWikipediaTitle(url: string): string | null {
   try {
     const parsed = new URL(url);
@@ -280,7 +341,116 @@ async function insertIntoPeople(newBlock: string) {
   await writeFile("lib/people.ts", lines.join("\n"));
 }
 
+async function updateDescriptionInFile(slug: string, newDescription: string) {
+  const content = await readFile("lib/people.ts", "utf-8");
+  const lines = content.split("\n");
+  let foundSlug = false;
+
+  for (let i = 0; i < lines.length; i++) {
+    const trimmed = lines[i].trim();
+    if (trimmed === `slug: "${slug}"`) {
+      foundSlug = true;
+      continue;
+    }
+    if (foundSlug && trimmed === "description:") {
+      if (i + 1 < lines.length) {
+        const indent = lines[i + 1].match(/^(\s*)/)?.[1] ?? "      ";
+        lines[i + 1] = `${indent}"${newDescription}",`;
+      }
+      break;
+    }
+    if (foundSlug && trimmed.startsWith("alignment:")) {
+      break;
+    }
+  }
+
+  await writeFile("lib/people.ts", lines.join("\n"));
+}
+
+async function regenerateExisting() {
+  console.log("Parsing existing entries...\n");
+  const content = await readFile("lib/people.ts", "utf-8");
+  const people = parseExistingPeople(content);
+
+  console.log(`Found ${people.length} existing entries.`);
+  console.log("\nOptions:");
+  console.log("  1. Regenerate ALL descriptions");
+  console.log("  2. Regenerate specific entries");
+  const mode = await rl.question("\nChoose (1/2): ");
+
+  let toProcess = people;
+  if (mode.trim() === "2") {
+    const input = await rl.question("Enter slugs or names (comma-separated): ");
+    const terms = input.split(",").map((s) => s.trim().toLowerCase());
+    toProcess = people.filter(
+      (p) => terms.includes(p.slug.toLowerCase()) || terms.includes(p.name.toLowerCase()),
+    );
+    console.log(`Matched ${toProcess.length} entries.\n`);
+  }
+
+  if (toProcess.length === 0) {
+    console.log("No entries to process.");
+    return;
+  }
+
+  let updatedCount = 0;
+
+  for (let i = 0; i < toProcess.length; i++) {
+    const person = toProcess[i];
+    console.log(`\n[${i + 1}/${toProcess.length}] ${person.name} (${person.slug})`);
+
+    console.log("  Fetching Wikipedia...");
+    const wiki = await fetchWikipediaSummary(person.wikipediaTitle);
+
+    console.log("  Generating description via Kimi...");
+    const newDesc = await generateDescription(
+      person.name,
+      wiki.extract,
+      person.alignment as "good" | "evil",
+    );
+
+    if (!newDesc) {
+      console.log("  ⚠️  Failed to generate description. Skipping.");
+      continue;
+    }
+
+    console.log(`\n  OLD: ${person.description}`);
+    console.log(`  NEW: ${newDesc}\n`);
+
+    const answer = await rl.question('  Accept new description? (y/n/q) ');
+    const choice = answer.trim().toLowerCase();
+    if (choice === "q") {
+      console.log("  Quitting.");
+      break;
+    }
+    if (choice === "y") {
+      await updateDescriptionInFile(person.slug, newDesc);
+      updatedCount++;
+      console.log("  Updated.\n");
+    } else {
+      console.log("  Skipped.\n");
+    }
+
+    if (i < toProcess.length - 1) {
+      await new Promise((r) => setTimeout(r, 1000));
+    }
+  }
+
+  console.log(`\nDone. Updated ${updatedCount} description(s).`);
+}
+
 async function main() {
+  console.log("What would you like to do?");
+  console.log("  1. Process new submission issues");
+  console.log("  2. Regenerate descriptions for existing entries");
+  const choice = await rl.question("\nChoose (1/2): ");
+
+  if (choice.trim() === "2") {
+    await regenerateExisting();
+    rl.close();
+    return;
+  }
+
   const owner = getEnv("GITHUB_OWNER", "hauntedpearltestbed");
   const repo = getEnv("GITHUB_REPO", "deadyet");
 
