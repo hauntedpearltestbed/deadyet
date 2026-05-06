@@ -4,6 +4,8 @@
 
 **Live site:** [deadyet.wtf](https://deadyet.wtf)
 
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/C0C71Z2PFL)
+
 ---
 
 A public service for the impatient. Check if notable people — heroes, villains, legends, and cautionary tales — are still breathing.

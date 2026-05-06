@@ -103,7 +103,7 @@ export function SearchBox({ people }: SearchBoxProps) {
         Is{" "}
         <span className="relative inline-block">
           {!isFocused && !query && (
-            <span className="absolute inset-0 flex items-center justify-center text-sm opacity-40 pointer-events-none select-none">
+            <span className="absolute inset-0 flex items-center justify-center text-[10px] sm:text-xs md:text-sm opacity-40 pointer-events-none select-none">
               click to search
             </span>
           )}

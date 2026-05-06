@@ -341,14 +341,13 @@ async function insertIntoPeople(newBlock: string) {
   await writeFile("lib/people.ts", lines.join("\n"));
 }
 
-async function updateDescriptionInFile(slug: string, newDescription: string) {
-  const content = await readFile("lib/people.ts", "utf-8");
+function updateDescriptionInContent(content: string, slug: string, newDescription: string): string {
   const lines = content.split("\n");
   let foundSlug = false;
 
   for (let i = 0; i < lines.length; i++) {
     const trimmed = lines[i].trim();
-    if (trimmed === `slug: "${slug}"`) {
+    if (trimmed.startsWith(`slug: "${slug}"`)) {
       foundSlug = true;
       continue;
     }
@@ -364,7 +363,7 @@ async function updateDescriptionInFile(slug: string, newDescription: string) {
     }
   }
 
-  await writeFile("lib/people.ts", lines.join("\n"));
+  return lines.join("\n");
 }
 
 async function regenerateExisting() {
@@ -394,6 +393,7 @@ async function regenerateExisting() {
   }
 
   let updatedCount = 0;
+  let fileContent = content;
 
   for (let i = 0; i < toProcess.length; i++) {
     const person = toProcess[i];
@@ -414,8 +414,11 @@ async function regenerateExisting() {
       continue;
     }
 
-    console.log(`\n  OLD: ${person.description}`);
-    console.log(`  NEW: ${newDesc}\n`);
+    console.log(`\n  ─── OLD ──────────────────────────────────────`);
+    console.log(`  ${person.description}`);
+    console.log(`  ─── NEW ──────────────────────────────────────`);
+    console.log(`  ${newDesc}`);
+    console.log(`  ──────────────────────────────────────────────\n`);
 
     const answer = await rl.question('  Accept new description? (y/n/q) ');
     const choice = answer.trim().toLowerCase();
@@ -424,7 +427,7 @@ async function regenerateExisting() {
       break;
     }
     if (choice === "y") {
-      await updateDescriptionInFile(person.slug, newDesc);
+      fileContent = updateDescriptionInContent(fileContent, person.slug, newDesc);
       updatedCount++;
       console.log("  Updated.\n");
     } else {
@@ -434,6 +437,11 @@ async function regenerateExisting() {
     if (i < toProcess.length - 1) {
       await new Promise((r) => setTimeout(r, 1000));
     }
+  }
+
+  if (updatedCount > 0) {
+    await writeFile("lib/people.ts", fileContent);
+    console.log(`\nWrote ${updatedCount} update(s) to lib/people.ts.`);
   }
 
   console.log(`\nDone. Updated ${updatedCount} description(s).`);
