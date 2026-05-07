@@ -1,0 +1,43 @@
+name: Refresh Wikipedia cache
+
+on:
+  schedule:
+    # Every Monday at 06:00 UTC.
+    - cron: "0 6 * * 1"
+  workflow_dispatch: {}
+
+jobs:
+  refresh:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 9
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: pnpm
+
+      - run: pnpm install --frozen-lockfile
+
+      - name: Rebuild Wikipedia cache
+        run: npx tsx scripts/build-wiki-cache.ts
+
+      - name: Open PR if cache changed
+        uses: peter-evans/create-pull-request@v6
+        with:
+          commit-message: "chore: refresh Wikipedia cache"
+          title: "chore: refresh Wikipedia cache"
+          body: |
+            Automated weekly refresh of `data/wiki-cache.json` from Wikipedia and Wikidata.
+
+            Compare the diff for newly-recorded death years, image URL changes, or other drift.
+          branch: chore/refresh-wiki-cache
+          delete-branch: true
+          add-paths: data/wiki-cache.json
