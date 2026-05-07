@@ -13,6 +13,51 @@ interface SearchBoxProps {
   people: ReadonlyArray<PersonOption>;
 }
 
+const RESULT_LIMIT = 8;
+
+function normalize(input: string): string {
+  // NFKD covers most accented Latin letters, but stroke letters and ligatures
+  // (ø, æ, œ, ß, ł, ð, þ) don't decompose and must be mapped explicitly so
+  // ASCII queries hit them.
+  return input
+    .normalize("NFKD")
+    .replace(/[̀-ͯ]/g, "")
+    .toLowerCase()
+    .replace(/ø/g, "o")
+    .replace(/æ/g, "ae")
+    .replace(/œ/g, "oe")
+    .replace(/ß/g, "ss")
+    .replace(/ð/g, "d")
+    .replace(/þ/g, "th")
+    .replace(/ł/g, "l");
+}
+
+// Token-aware scoring: prefix matches on the last name beat substring matches
+// elsewhere. Tied scores fall through to alphabetical for predictability.
+function scoreMatch(query: string, normalizedName: string): number {
+  const tokens = normalizedName.split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return 0;
+  const last = tokens[tokens.length - 1];
+  const first = tokens[0];
+
+  if (normalizedName === query) return 1000;
+  if (last.startsWith(query)) return 600 - last.length;
+  if (first.startsWith(query)) return 500 - first.length;
+  for (let i = 1; i < tokens.length - 1; i++) {
+    if (tokens[i].startsWith(query)) return 400 - tokens[i].length;
+  }
+  if (normalizedName.startsWith(query)) return 350 - normalizedName.length;
+  const lastIdx = last.indexOf(query);
+  if (lastIdx > 0) return 250 - lastIdx;
+  for (let i = 0; i < tokens.length - 1; i++) {
+    const idx = tokens[i].indexOf(query);
+    if (idx > 0) return 150 - idx;
+  }
+  const wholeIdx = normalizedName.indexOf(query);
+  if (wholeIdx > 0) return 100 - wholeIdx;
+  return 0;
+}
+
 export function SearchBox({ people }: SearchBoxProps) {
   const router = useRouter();
   const [query, setQuery] = useState("");
@@ -23,14 +68,21 @@ export function SearchBox({ people }: SearchBoxProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const itemRefs = useRef<(HTMLButtonElement | null)[]>([]);
 
+  const indexed = useMemo(
+    () =>
+      people.map((p) => ({ person: p, normalized: normalize(p.name) })),
+    [people],
+  );
+
+  // Fuse stays around purely as a typo-tolerance fallback when the
+  // token-aware ranker finds nothing.
   const fuse = useMemo(
     () =>
       new Fuse(people, {
         keys: ["name"],
-        threshold: 0.15,
+        threshold: 0.4,
         minMatchCharLength: 2,
-        ignoreLocation: false,
-        distance: 60,
+        ignoreLocation: true,
       }),
     [people],
   );
@@ -38,8 +90,24 @@ export function SearchBox({ people }: SearchBoxProps) {
   const filtered = useMemo(() => {
     const trimmed = query.trim();
     if (!trimmed) return [];
-    return fuse.search(trimmed, { limit: 5 }).map((r) => r.item);
-  }, [query, fuse]);
+    const q = normalize(trimmed);
+
+    const scored: Array<{ person: PersonOption; score: number }> = [];
+    for (const { person, normalized } of indexed) {
+      const score = scoreMatch(q, normalized);
+      if (score > 0) scored.push({ person, score });
+    }
+
+    if (scored.length > 0) {
+      scored.sort((a, b) => {
+        if (b.score !== a.score) return b.score - a.score;
+        return a.person.name.localeCompare(b.person.name);
+      });
+      return scored.slice(0, RESULT_LIMIT).map((s) => s.person);
+    }
+
+    return fuse.search(trimmed, { limit: RESULT_LIMIT }).map((r) => r.item);
+  }, [query, indexed, fuse]);
 
   useEffect(() => {
     setActiveIndex(0);
