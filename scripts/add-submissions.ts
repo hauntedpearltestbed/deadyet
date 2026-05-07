@@ -145,7 +145,7 @@ async function generateDescription(
   const framing =
     alignment === "good"
       ? "Frame the description positively — focus only on their achievements, contributions, and admirable qualities."
-      : "Frame the description negatively — focus only on their crimes, atrocities, controversies, and harmful actions. If there are not enough clearly negative aspects, use a neutral factual tone.";
+      : "Frame the description negatively — focus only on their crimes, atrocities, controversies, and harmful actions.";
 
   const res = await fetch("https://api.kimi.com/coding/v1/chat/completions", {
     method: "POST",
@@ -160,7 +160,7 @@ async function generateDescription(
         {
           role: "system",
           content:
-            `You write concise, factual 2-3 sentence descriptions of notable people for a reference website. Be specific about why they are significant. ${framing} Return ONLY the description text, no quotes or preamble.`,
+            `You write concise, factual 2-3 sentence descriptions of notable people for a reference website. Mention why they are well known. ${framing} Return ONLY the description text, no quotes or preamble or thinking, nothing outside of the description text.`,
         },
         {
           role: "user",
