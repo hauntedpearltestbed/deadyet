@@ -6501,6 +6501,15 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "evil",
     fallback: { birthYear: 1970, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/64/F20260213AH-3001_%28cropped%29.jpg/330px-F20260213AH-3001_%28cropped%29.jpg" },
   },
+  {
+    slug: "alan-rickman",
+    name: "Alan Rickman",
+    wikipediaTitle: "Alan_Rickman",
+    description:
+      "Alan Rickman was an acclaimed English actor celebrated for his commanding stage and screen performances and his deep, distinctive voice. A graduate of the Royal Academy of Dramatic Art, he earned numerous honors including a BAFTA Award, a Golden Globe Award, and a Primetime Emmy Award, reflecting his extraordinary range and dedication to his craft. He was also recognized with Tony and Laurence Olivier Award nominations for his powerful contributions to theater.",
+    alignment: "good",
+    fallback: { birthYear: 1946, deathYear: 2016, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/f/fe/Alan_Rickman_after_Seminar_%283%29.jpg/330px-Alan_Rickman_after_Seminar_%283%29.jpg" },
+  },
 ];
 
 for (const person of SEED) {
