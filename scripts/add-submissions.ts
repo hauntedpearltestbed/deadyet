@@ -473,21 +473,54 @@ async function main() {
   }
 
   const existingSlugs = await getExistingSlugs();
-  const toProcess: { issue: SubmissionIssue; parsed: ReturnType<typeof parseIssueBody> }[] = [];
+  type WikiSummary = Awaited<ReturnType<typeof fetchWikipediaSummary>>;
+  const toProcess: {
+    issue: SubmissionIssue;
+    parsed: ReturnType<typeof parseIssueBody>;
+    wiki: WikiSummary;
+    canonicalName: string;
+  }[] = [];
 
   for (const issue of issues) {
     const parsed = parseIssueBody(issue.body);
-    const slug = parsed.name ? slugify(parsed.name) : null;
-    const isDuplicate = slug ? existingSlugs.has(slug) : false;
+    if (!parsed.name) {
+      console.log(`#${issue.number}: ${issue.title}`);
+      console.log(`  ⚠️  Could not parse name from issue body. Skipping.\n`);
+      continue;
+    }
+
+    // Resolve Wikipedia early so duplicate-detection uses the canonical name
+    // (catches typos like "Micheal Jackson" → "Michael Jackson") and the
+    // listing shows the user what the script actually found.
+    const lookupTitle = parsed.wikipediaUrl
+      ? extractWikipediaTitle(parsed.wikipediaUrl)
+      : parsed.name;
+    const wiki = lookupTitle
+      ? await fetchWikipediaSummary(lookupTitle)
+      : { title: null, extract: null, wikibase_item: null, thumbnail: null };
+
+    const canonicalName = wiki.title ?? parsed.name;
+    const slug = slugify(canonicalName);
+    const isDuplicate = existingSlugs.has(slug);
 
     console.log(`#${issue.number}: ${issue.title}`);
-    console.log(`  Name: ${parsed.name ?? "(parse failed)"}`);
-    console.log(`  Wikipedia: ${parsed.wikipediaUrl ?? "(none)"}`);
+    console.log(`  Name:      ${canonicalName}`);
+    console.log(
+      `  Wikipedia: ${
+        wiki.title
+          ? parsed.wikipediaUrl
+            ? wiki.title
+            : `${wiki.title} (auto-resolved from name)`
+          : parsed.wikipediaUrl
+            ? "(URL provided but no match)"
+            : "(no URL on issue and no Wikipedia match by name)"
+      }`,
+    );
     if (isDuplicate) console.log(`  ⚠️  DUPLICATE — ${slug} already exists`);
     console.log("");
 
-    if (!isDuplicate && parsed.name) {
-      toProcess.push({ issue, parsed });
+    if (!isDuplicate) {
+      toProcess.push({ issue, parsed, wiki, canonicalName });
     }
   }
 
@@ -508,18 +541,8 @@ async function main() {
 
   const addedSlugs: string[] = [];
 
-  for (const { issue, parsed } of toProcess) {
-    console.log(`\n--- Processing #${issue.number}: ${parsed.name} ---`);
-
-    const wikiTitle = parsed.wikipediaUrl
-      ? extractWikipediaTitle(parsed.wikipediaUrl)
-      : parsed.name;
-
-    console.log("  Fetching Wikipedia...");
-    const wiki = wikiTitle ? await fetchWikipediaSummary(wikiTitle) : { title: null, extract: null, wikibase_item: null, thumbnail: null };
-
-    // Use Wikipedia's canonical title for proper name capitalization
-    const canonicalName = wiki.title ?? parsed.name!;
+  for (const { issue, parsed, wiki, canonicalName } of toProcess) {
+    console.log(`\n--- Processing #${issue.number}: ${canonicalName} ---`);
 
     let birthYear: number | null = null;
     let deathYear: number | null = null;
@@ -530,12 +553,14 @@ async function main() {
       deathYear = dates.deathYear;
     }
 
+    const canonicalWikiTitle = wiki.title ?? canonicalName;
+
     console.log("");
     console.log(`  Name:     ${canonicalName}`);
     console.log(`  Slug:     ${slugify(canonicalName)}`);
     console.log(`  Born:     ${birthYear ?? "unknown"}`);
     console.log(`  Died:     ${deathYear ?? "still alive"}`);
-    console.log(`  Wiki:     ${wikiTitle}`);
+    console.log(`  Wiki:     ${canonicalWikiTitle}`);
     console.log("");
 
     const alignmentInput = await rl.question('  Alignment — "good" or "evil"? ');
@@ -548,7 +573,7 @@ async function main() {
     let description = parsed.existingDescription;
     if (!description && wiki.extract) {
       console.log("  Generating description via Kimi...");
-      description = await generateDescription(parsed.name!, wiki.extract, alignment as "good" | "evil");
+      description = await generateDescription(canonicalName, wiki.extract, alignment as "good" | "evil");
     }
 
     console.log(`  Desc:     ${description ?? "(failed to generate)"}`);
@@ -557,7 +582,7 @@ async function main() {
     const block = formatSeedPerson({
       slug: slugify(canonicalName),
       name: canonicalName,
-      wikipediaTitle: wikiTitle?.replace(/ /g, "_") ?? canonicalName,
+      wikipediaTitle: canonicalWikiTitle.replace(/ /g, "_"),
       description: description ?? "",
       alignment,
       birthYear,
