@@ -59,7 +59,54 @@ export async function fetchWikipediaSummary(
     // cache hits. A short retry usually gets the full data including images.
     await new Promise((r) => setTimeout(r, 750));
     const second = await tryFetch();
-    return second ?? first ?? null;
+    const result = second ?? first ?? null;
+    if (result && !result.thumbnail && !result.originalimage) {
+      // The REST summary sometimes ships without images during high-load
+      // builds even when the article has one. Fall back to the action-API
+      // pageimages source, which is independently maintained.
+      const fallback = await fetchPageImageFallback(title);
+      if (fallback) {
+        return { ...result, thumbnail: fallback, originalimage: fallback };
+      }
+    }
+    return result;
+  } catch {
+    return null;
+  }
+}
+
+async function fetchPageImageFallback(
+  title: string,
+): Promise<{ source: string; width: number; height: number } | null> {
+  const encoded = encodeURIComponent(title.replace(/ /g, "_"));
+  const url =
+    `https://en.wikipedia.org/w/api.php?action=query&format=json` +
+    `&prop=pageimages&piprop=thumbnail%7Coriginal&pithumbsize=400` +
+    `&redirects=1&origin=*&titles=${encoded}`;
+  try {
+    const res = await fetch(url, {
+      next: { revalidate: WIKIPEDIA_REVALIDATE_SECONDS },
+    });
+    if (!res.ok) return null;
+    const data = (await res.json()) as unknown;
+    if (typeof data !== "object" || data === null) return null;
+    const query = (data as Record<string, unknown>).query;
+    if (typeof query !== "object" || query === null) return null;
+    const pages = (query as Record<string, unknown>).pages;
+    if (typeof pages !== "object" || pages === null) return null;
+    const page = Object.values(pages)[0] as
+      | Record<string, unknown>
+      | undefined;
+    if (!page) return null;
+    const thumb = page.thumbnail as
+      | { source: string; width: number; height: number }
+      | undefined;
+    if (thumb?.source) return thumb;
+    const original = page.original as
+      | { source: string; width: number; height: number }
+      | undefined;
+    if (original?.source) return original;
+    return null;
   } catch {
     return null;
   }
