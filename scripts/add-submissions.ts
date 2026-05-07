@@ -2,7 +2,6 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 import { readFile, writeFile } from "fs/promises";
 import { createInterface } from "readline/promises";
-import { execSync } from "child_process";
 import { stdin, stdout } from "process";
 
 const rl = createInterface({ input: stdin, output: stdout });
@@ -589,26 +588,22 @@ async function main() {
   rl.close();
 
   if (addedSlugs.length === 0) {
-    console.log("No entries added. Nothing to commit.");
+    console.log("No entries added. Nothing to do.");
     return;
   }
 
-  const branchName = `feat/add-${addedSlugs.join("-")}-${Date.now()}`;
   const commitMessage = `feat: add ${addedSlugs.join(", ")}`;
 
-  console.log(`\nAdded ${addedSlugs.length} entrie(s): ${addedSlugs.join(", ")}`);
-  console.log("Committing and pushing to branch...\n");
-
-  try {
-    execSync("git add lib/people.ts", { stdio: "inherit" });
-    execSync(`git checkout -b "${branchName}"`, { stdio: "inherit" });
-    execSync(`git commit -m "${commitMessage}"`, { stdio: "inherit" });
-    execSync(`git push -u origin "${branchName}"`, { stdio: "inherit" });
-    console.log(`\n✅ Pushed to branch: ${branchName}`);
-    console.log(`   Review: https://github.com/${owner}/${repo}/pull/new/${branchName}`);
-  } catch {
-    console.log("\n⚠️  Git operation failed. You may need to commit/push manually.");
-  }
+  console.log(
+    `\n✅ Added ${addedSlugs.length} entrie(s) to lib/people.ts: ${addedSlugs.join(", ")}`,
+  );
+  console.log("\nReview the diff, then commit and push manually:");
+  console.log("");
+  console.log("    git diff lib/people.ts");
+  console.log("    git add lib/people.ts");
+  console.log(`    git commit -m "${commitMessage}"`);
+  console.log("    git push origin main");
+  console.log("");
 }
 
 main().catch((err) => {
