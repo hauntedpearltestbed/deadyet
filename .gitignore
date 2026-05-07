@@ -48,3 +48,6 @@ pnpm-lock.yaml
 *.xlsx
 *.xls
 *.ods
+
+# personal notes
+/TODO
