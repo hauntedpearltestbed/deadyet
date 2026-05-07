@@ -1,8 +1,9 @@
 export function Footer() {
   return (
     <footer className="py-6 px-4 flex flex-col sm:flex-row justify-between items-center gap-2 text-sm text-muted">
-      <span>
+      <span className="text-center sm:text-left">
         Not finding who you're looking for?{" "}
+        <br className="sm:hidden" />
         <a href="/submit" className="underline hover:text-foreground transition-colors">
           Request an addition
         </a>
