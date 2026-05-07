@@ -6515,7 +6515,7 @@ const SEED: ReadonlyArray<SeedPerson> = [
     name: "Michael Jackson",
     wikipediaTitle: "Michael_Jackson",
     description:
-      "Michael Jackson was an American singer, songwriter, dancer, and philanthropist known worldwide as the "King of Pop" and one of the most influential entertainers in history. Over a career spanning four decades, he broke racial barriers in the music industry and revolutionized popular music through iconic visual performances, including the moonwalk and the anti-gravity lean. Celebrated as one of the greatest entertainers of all time, his artistry and humanitarian efforts left an enduring global legacy.",
+      "Michael Jackson was an American singer, songwriter, dancer, and philanthropist known worldwide as the \"King of Pop\" and one of the most influential entertainers in history. Over a career spanning four decades, he broke racial barriers in the music industry and revolutionized popular music through iconic visual performances, including the moonwalk and the anti-gravity lean. Celebrated as one of the greatest entertainers of all time, his artistry and humanitarian efforts left an enduring global legacy.",
     alignment: "good",
     fallback: { birthYear: 1958, deathYear: 2009, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg/330px-Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg" },
   },

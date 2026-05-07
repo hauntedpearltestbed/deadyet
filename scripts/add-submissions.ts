@@ -2,6 +2,7 @@ import { config } from "dotenv";
 config({ path: ".env.local" });
 import { readFile, writeFile } from "fs/promises";
 import { createInterface } from "readline/promises";
+import { spawnSync } from "child_process";
 import { stdin, stdout } from "process";
 
 const rl = createInterface({ input: stdin, output: stdout });
@@ -296,6 +297,14 @@ function extractWikipediaTitle(url: string): string | null {
   }
 }
 
+// Escape every value that lands inside a TS double-quoted string literal.
+// AI-generated descriptions routinely contain inner quotes (e.g. nicknames
+// like "King of Pop") that would otherwise terminate the string and break
+// the seed file at parse time.
+function escapeForTsString(s: string): string {
+  return s.replace(/\\/g, "\\\\").replace(/"/g, '\\"');
+}
+
 function formatSeedPerson(p: {
   slug: string;
   name: string;
@@ -309,15 +318,16 @@ function formatSeedPerson(p: {
   const fallbackParts: string[] = [];
   fallbackParts.push(`birthYear: ${p.birthYear ?? "null"}`);
   fallbackParts.push(`deathYear: ${p.deathYear ?? "null"}`);
-  if (p.imageUrl) fallbackParts.push(`imageUrl: "${p.imageUrl}"`);
+  if (p.imageUrl)
+    fallbackParts.push(`imageUrl: "${escapeForTsString(p.imageUrl)}"`);
 
   return `  {
-    slug: "${p.slug}",
-    name: "${p.name}",
-    wikipediaTitle: "${p.wikipediaTitle}",
+    slug: "${escapeForTsString(p.slug)}",
+    name: "${escapeForTsString(p.name)}",
+    wikipediaTitle: "${escapeForTsString(p.wikipediaTitle)}",
     description:
-      "${p.description}",
-    alignment: "${p.alignment}",
+      "${escapeForTsString(p.description)}",
+    alignment: "${escapeForTsString(p.alignment)}",
     fallback: { ${fallbackParts.join(", ")} },
   },`;
 }
@@ -614,6 +624,34 @@ async function main() {
 
   if (addedSlugs.length === 0) {
     console.log("No entries added. Nothing to do.");
+    return;
+  }
+
+  // Verify the seed still parses with esbuild — Vercel uses esbuild and tsc's
+  // recovery would otherwise hide a syntax bug until the deploy fails. This
+  // is what catches unescaped quotes in AI-generated descriptions.
+  const check = spawnSync(
+    "npx",
+    [
+      "--yes",
+      "esbuild",
+      "--loader:.ts=ts",
+      "--log-level=error",
+      "lib/people.ts",
+    ],
+    { encoding: "utf8", stdio: ["ignore", "ignore", "pipe"] },
+  );
+  if (check.status !== 0) {
+    console.log("\n⚠️  WARNING — lib/people.ts has a syntax error after insertion.");
+    console.log("    Vercel will fail to build if you push this.");
+    console.log("");
+    console.log("Parser output:");
+    console.log(check.stderr || "(no stderr)");
+    console.log("");
+    console.log("To fix: open lib/people.ts at the reported line and escape any");
+    console.log("inner double quotes (\" → \\\").");
+    console.log("Or revert with:  git checkout lib/people.ts");
+    console.log("");
     return;
   }
 
