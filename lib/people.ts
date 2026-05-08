@@ -6519,6 +6519,15 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "good",
     fallback: { birthYear: 1958, deathYear: 2009, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg/330px-Michael_Jackson_1983_%283x4_cropped%29_%28contrast%29.jpg" },
   },
+  {
+    slug: "steven-roth",
+    name: "Steven Roth",
+    wikipediaTitle: "Steven_Roth",
+    description:
+      "Steven Roth is the billionaire founder and chairman of Vornado Realty Trust, New York City’s largest commercial landlord, notorious for predatory real estate practices that displace small businesses, exploit tax loopholes, and extract massive government subsidies while driving working-class residents from Manhattan. He has cultivated political influence through substantial campaign donations and his service on Donald Trump’s economic advisory council, while his companies have faced repeated allegations of tenant harassment, neglect of building conditions, and anti-competitive behavior that prioritizes corporate profit over community welfare.",
+    alignment: "evil",
+    fallback: { birthYear: 1941, deathYear: null, imageUrl: "https://imageio.forbes.com/specials-images/imageserve/5a90ae6a4bbe6f0fa8266b8d/0x0.jpg?format=jpg&crop=2360,2359,x1091,y177,safe&height=416&width=416&fit=bounds" },
+  },
 ];
 
 for (const person of SEED) {
