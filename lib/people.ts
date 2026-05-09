@@ -6528,6 +6528,15 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "evil",
     fallback: { birthYear: 1941, deathYear: null, imageUrl: "https://imageio.forbes.com/specials-images/imageserve/5a90ae6a4bbe6f0fa8266b8d/0x0.jpg?format=jpg&crop=2360,2359,x1091,y177,safe&height=416&width=416&fit=bounds" },
   },
+  {
+    slug: "john-fetterman",
+    name: "John Fetterman",
+    wikipediaTitle: "John_Fetterman",
+    description:
+      "John Fetterman, a Democratic U.S. senator from Pennsylvania, first drew national attention as mayor of Braddock for chasing an unarmed Black jogger with a shotgun in a widely condemned incident that critics labeled as racially charged vigilante aggression. He has been criticized for relying on his wealthy parents' income while serving as mayor of one of the state's poorest towns, cultivating a faux working-class persona that opponents denounce as hypocritical and deceptive. Throughout his political career, he has faced scrutiny for abrasive conduct, exploiting populist imagery to mask his privileged upbringing, and supporting policies his detractors view as detrimental to the constituents he claims to represent.",
+    alignment: "evil",
+    fallback: { birthYear: 1969, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/John_Fetterman_official_portrait.jpg/330px-John_Fetterman_official_portrait.jpg" },
+  },
 ];
 
 for (const person of SEED) {
