@@ -6537,6 +6537,24 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "evil",
     fallback: { birthYear: 1969, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/e/ea/John_Fetterman_official_portrait.jpg/330px-John_Fetterman_official_portrait.jpg" },
   },
+  {
+    slug: "john-heilemann",
+    name: "John Heilemann",
+    wikipediaTitle: "John_Heilemann",
+    description:
+      "John Heilemann is an acclaimed American journalist and national affairs analyst for NBC News and MSNBC, widely recognized for his sharp political insight and commentary. He co-authored the bestselling books *Game Change* and *Double Down*, which offered compelling behind-the-scenes accounts of American presidential campaigns. A veteran staff writer for esteemed publications including *New York*, *Wired*, and *The Economist*, Heilemann has built a distinguished career illuminating the intricacies of politics and media.",
+    alignment: "good",
+    fallback: { birthYear: 1966, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/d/d7/John_Heilemann_The_Circus_2017.png/330px-John_Heilemann_The_Circus_2017.png" },
+  },
+  {
+    slug: "mark-halperin",
+    name: "Mark Halperin",
+    wikipediaTitle: "Mark_Halperin",
+    description:
+      "Mark Halperin is a former political journalist and commentator widely known for numerous allegations of serial sexual harassment and misconduct during his tenure at ABC News, where multiple women accused him of unwanted advances and predatory behavior that created a toxic work environment. Following the 2017 public revelations, he was swiftly fired from NBC News and MSNBC, saw major book and television projects canceled, and became a prominent symbol of professional disgrace amid the #MeToo movement.",
+    alignment: "evil",
+    fallback: { birthYear: 1965, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mark_Halperin_2012_Shankbone.JPG/330px-Mark_Halperin_2012_Shankbone.JPG" },
+  },
 ];
 
 for (const person of SEED) {
