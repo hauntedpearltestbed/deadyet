@@ -6555,6 +6555,33 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "evil",
     fallback: { birthYear: 1965, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/3/3b/Mark_Halperin_2012_Shankbone.JPG/330px-Mark_Halperin_2012_Shankbone.JPG" },
   },
+  {
+    slug: "olivia-nuzzi",
+    name: "Olivia Nuzzi",
+    wikipediaTitle: "Olivia_Nuzzi",
+    description:
+      "Olivia Nuzzi is a former journalist notorious for a gross ethical violation in which she concealed an affair with Robert F. Kennedy Jr. while simultaneously covering his 2024 presidential campaign for New York magazine. Her refusal to disclose this severe conflict of interest led to her suspension and termination from the publication, representing a deliberate betrayal of journalistic standards and reader trust.",
+    alignment: "evil",
+    fallback: { birthYear: 1993, deathYear: null },
+  },
+  {
+    slug: "jonathan-karl",
+    name: "Jonathan Karl",
+    wikipediaTitle: "Jonathan_Karl",
+    description:
+      "Jonathan Karl is a respected American political journalist and author known for his extensive coverage of U.S. politics, foreign policy, and military affairs. He has reported from the White House, Capitol Hill, the Pentagon, and the State Department, and has brought important international perspectives to audiences through his reporting from more than 30 countries.",
+    alignment: "good",
+    fallback: { birthYear: 1968, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/bb/Jonathan_Karl.jpg/330px-Jonathan_Karl.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
+  {
+    slug: "maggie-haberman",
+    name: "Maggie Haberman",
+    wikipediaTitle: "Maggie_Haberman",
+    description:
+      "Maggie Haberman is an American journalist who serves as a White House correspondent for The New York Times and a political analyst for CNN, widely recognized for her extensive and insightful coverage of American presidential politics. She previously reported for Politico, the New York Daily News, and the New York Post before rising to prominence covering Donald Trump’s campaign and presidency for the Times. In 2022, she authored the best-selling book Confidence Man: The Making of Donald Trump and the Breaking of America, solidifying her reputation as a leading chronicler of modern American political history.",
+    alignment: "good",
+    fallback: { birthYear: 1973, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Pulitzer2018-maggie-haberman-20180530-wp.jpg/330px-Pulitzer2018-maggie-haberman-20180530-wp.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
 ];
 
 for (const person of SEED) {

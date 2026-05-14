@@ -515,6 +515,9 @@ async function main() {
 
     console.log(`#${issue.number}: ${issue.title}`);
     console.log(`  Name:      ${canonicalName}`);
+    if (parsed.reason) {
+      console.log(`  Reason:    ${parsed.reason}`);
+    }
     console.log(
       `  Wikipedia: ${
         wiki.title
@@ -571,6 +574,9 @@ async function main() {
     console.log(`  Born:     ${birthYear ?? "unknown"}`);
     console.log(`  Died:     ${deathYear ?? "still alive"}`);
     console.log(`  Wiki:     ${canonicalWikiTitle}`);
+    if (parsed.reason) {
+      console.log(`  Reason:   ${parsed.reason}`);
+    }
     console.log("");
 
     const alignmentInput = await rl.question('  Alignment — "good" or "evil"? ');

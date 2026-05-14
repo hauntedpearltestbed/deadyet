@@ -11,11 +11,11 @@ fi
 
 if [ -t 0 ]; then
   # Already running in a terminal
-  npx tsx scripts/add-submissions.ts
+  NODE_OPTIONS="--no-deprecation" npx tsx scripts/add-submissions.ts
 else
   # Not in a terminal — open kitty
   if command -v kitty &> /dev/null; then
-    kitty --title="Add Submissions — deadyet" bash -c "cd $(pwd) && npx tsx scripts/add-submissions.ts; echo ''; read -n 1 -s -r -p 'Press any key to close...'"
+    kitty --title="Add Submissions — deadyet" bash -c "cd $(pwd) && NODE_OPTIONS='--no-deprecation' npx tsx scripts/add-submissions.ts; echo ''; read -n 1 -s -r -p 'Press any key to close...'"
   else
     echo "No terminal emulator found. Please run: npx tsx scripts/add-submissions.ts"
     read -n 1 -s -r -p "Press any key to exit..."

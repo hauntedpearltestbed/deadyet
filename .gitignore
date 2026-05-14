@@ -51,3 +51,6 @@ pnpm-lock.yaml
 
 # personal notes
 /TODO
+scripts/sqlite_mcp_server.db
+code_review.md
+.directory
