@@ -22,6 +22,10 @@ body {
   background: var(--background);
   color: var(--foreground);
   font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+  /* Geist Mono's `liga` feature merges sequences like ?? -> a single
+     combined glyph (e.g. "20??" rendered as "20?"). Disable ligatures
+     site-wide — this is a prose site, not a code editor. */
+  font-variant-ligatures: none;
 }
 
 ::selection {
