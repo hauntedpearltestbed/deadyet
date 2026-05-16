@@ -6582,6 +6582,60 @@ const SEED: ReadonlyArray<SeedPerson> = [
     alignment: "good",
     fallback: { birthYear: 1973, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/0c/Pulitzer2018-maggie-haberman-20180530-wp.jpg/330px-Pulitzer2018-maggie-haberman-20180530-wp.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
   },
+  {
+    slug: "benjamin-smith",
+    name: "Benjamin Smith",
+    wikipediaTitle: "Benjamin_Smith",
+    description:
+      "Benjamin Smith was an American politician and military officer who served as Governor of North Carolina and represented his state in both the United States Senate and House of Representatives during the early Republic. A dedicated public servant and veteran of the Revolutionary War, he contributed to shaping the political institutions and governance of North Carolina and the nation through his steadfast leadership.",
+    alignment: "good",
+    fallback: { birthYear: null, deathYear: null },
+  },
+  {
+    slug: "ezra-klein",
+    name: "Ezra Klein",
+    wikipediaTitle: "Ezra_Klein",
+    description:
+      "Ezra Klein is an influential American journalist and political commentator known for his incisive analysis of American politics and policy. He is a New York Times columnist, the host of the acclaimed podcast *The Ezra Klein Show*, and the co-founder of Vox, where he helped pioneer accessible, explanatory journalism. Klein is also the bestselling author of *Why We're Polarized* and *Abundance*, books that have shaped national conversations on political division and economic prosperity.",
+    alignment: "good",
+    fallback: { birthYear: 1984, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/00/Ezra_Klein_2026-01-28.jpg/330px-Ezra_Klein_2026-01-28.jpg" },
+  },
+  {
+    slug: "matt-taibbi",
+    name: "Matt Taibbi",
+    wikipediaTitle: "Matt_Taibbi",
+    description:
+      "Matt Taibbi is widely condemned for his tenure at the Moscow newspaper *The eXile*, where he published graphic misogynistic content and fictionalized accounts of sexually harassing female staffers that critics treated as reflective of predatory behavior. He generated further controversy as a lead reporter on the \"Twitter Files,\" which was denounced as a selective, decontextualized project designed to amplify baseless conspiracy theories about government censorship. He has also been criticized for spreading medical misinformation and invoking antisemitic tropes in his commentary on politics and media.",
+    alignment: "evil",
+    fallback: { birthYear: 1970, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Matt_Taibbi_on_ReasonTV.jpg/330px-Matt_Taibbi_on_ReasonTV.jpg" },
+  },
+  {
+    slug: "andrew-sullivan",
+    name: "Andrew Sullivan",
+    wikipediaTitle: "Andrew_Sullivan",
+    description:
+      "Andrew Sullivan is best known for leveraging his editorial role at *The New Republic* to platform Charles Murray’s *The Bell Curve*, a widely condemned work promoting racist pseudoscience about intelligence and race. He was an outspoken media advocate for the 2003 invasion of Iraq, aggressively championing the war based on discredited intelligence and attacking critics while helping to drum up public support for a catastrophic conflict. Throughout his career, he has repeatedly generated controversy for rhetoric targeting Muslims and for writings opposed to transgender rights, using his influential columns to mainstream prejudiced and harmful narratives.",
+    alignment: "evil",
+    fallback: { birthYear: 1963, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/0/07/Andrew_Sullivan_cropped.jpg/330px-Andrew_Sullivan_cropped.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
+  {
+    slug: "jake-tapper",
+    name: "Jake Tapper",
+    wikipediaTitle: "Jake_Tapper",
+    description:
+      "Jake Tapper is a distinguished American journalist serving as CNN’s lead Washington anchor, where he hosts the acclaimed weekday program *The Lead with Jake Tapper* and co-hosts the Sunday public affairs show *State of the Union*. He is widely respected for his incisive political reporting and steadfast dedication to rigorous, fact-based journalism that holds public officials accountable.",
+    alignment: "good",
+    fallback: { birthYear: 1969, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b5/JakeTapper-byPhilipRomano.jpg/330px-JakeTapper-byPhilipRomano.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
+  {
+    slug: "david-muir",
+    name: "David Muir",
+    wikipediaTitle: "David_Muir",
+    description:
+      "David Muir is an acclaimed American journalist who anchors ABC World News Tonight and co-anchors the network’s esteemed news magazine 20/20. He is widely recognized for his trusted reporting and leadership in broadcast journalism, having succeeded Diane Sawyer as the weeknight anchor of ABC’s flagship evening newscast in 2014.",
+    alignment: "good",
+    fallback: { birthYear: 1973, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/David_Muir_at_the_premiere_of_%E2%80%98Running_with_the_Wolves%E2%80%99.jpg/330px-David_Muir_at_the_premiere_of_%E2%80%98Running_with_the_Wolves%E2%80%99.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
 ];
 
 for (const person of SEED) {
