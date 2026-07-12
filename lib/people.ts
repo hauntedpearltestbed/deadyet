@@ -4184,9 +4184,10 @@ const SEED: ReadonlyArray<SeedPerson> = [
     name: "Lindsey Graham",
     wikipediaTitle: "Lindsey_Graham",
     description:
-      "Lindsey Olin Graham is an American senator from South Carolina who has served since 2003 after eight years in the U.S. House of Representatives. Once a vocal critic who in 2016 called Donald Trump a \"race-baiting, xenophobic, religious bigot\" and warned the GOP would deserve to lose if it nominated him, he reversed himself completely after the election to become one of Trump's most consistent Senate defenders, including throughout the two impeachments. He has also been a leading Senate hawk on military intervention abroad, agitating for U.S. action in Iran, Syria, Libya, and Russia across multiple administrations.",
+      "Lindsey Olin Graham was an American senator from South Carolina who served from 2003 after eight years in the U.S. House of Representatives. Once a vocal critic who in 2016 called Donald Trump a \"race-baiting, xenophobic, religious bigot\" and warned the GOP would deserve to lose if it nominated him, he reversed himself completely after the election to become one of Trump's most consistent Senate defenders, including throughout the two impeachments. He was also a leading Senate hawk on military intervention abroad, agitating for U.S. action in Iran, Syria, Libya, and Russia across multiple administrations.",
     alignment: "evil",
-    fallback: { birthYear: 1955, deathYear: null },
+    status: "dead",
+    fallback: { birthYear: 1955, deathYear: 2026 },
   },
   {
     slug: "marco-rubio",
@@ -6635,6 +6636,24 @@ const SEED: ReadonlyArray<SeedPerson> = [
       "David Muir is an acclaimed American journalist who anchors ABC World News Tonight and co-anchors the network’s esteemed news magazine 20/20. He is widely recognized for his trusted reporting and leadership in broadcast journalism, having succeeded Diane Sawyer as the weeknight anchor of ABC’s flagship evening newscast in 2014.",
     alignment: "good",
     fallback: { birthYear: 1973, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/David_Muir_at_the_premiere_of_%E2%80%98Running_with_the_Wolves%E2%80%99.jpg/330px-David_Muir_at_the_premiere_of_%E2%80%98Running_with_the_Wolves%E2%80%99.jpg?utm_source=en.wikipedia.org&utm_campaign=api&utm_content=thumbnail" },
+  },
+  {
+    slug: "matthew-yglesias",
+    name: "Matthew Yglesias",
+    wikipediaTitle: "Matthew_Yglesias",
+    description:
+      "Matthew Yglesias is an American journalist best known for co-founding Vox, a digital media outlet widely criticized for reducing complex political and economic issues to reductive, partisan narratives that mislead readers. He has repeatedly generated controversy for inflammatory commentary on race, gender, and social policy, and attracted significant backlash from media peers for signing the Harper's Letter, which critics argued provided cover for powerful figures while undermining accountability for harmful speech.",
+    alignment: "evil",
+    fallback: { birthYear: 1981, deathYear: null, imageUrl: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/13/Matthew_Yglesias_cropped.jpg/330px-Matthew_Yglesias_cropped.jpg" },
+  },
+  {
+    slug: "bari-weiss",
+    name: "Bari Weiss",
+    wikipediaTitle: "Bari_Weiss",
+    description:
+      "\"Bari Weiss is an American political commentator notorious for her tenure at The New York Times, where she faced internal allegations of targeting coworkers and fostering a toxic environment before resigning with a widely criticized public attack on her colleagues. Through her media company The Free Press and her podcast Honestly, she has drawn sustained condemnation for promoting inflammatory rhetoric against Palestinians, transgender people, and racial justice movements while platforming extremist viewpoints under the guise of free speech.\"",
+    alignment: "evil",
+    fallback: { birthYear: 1984, deathYear: null },
   },
 ];
 

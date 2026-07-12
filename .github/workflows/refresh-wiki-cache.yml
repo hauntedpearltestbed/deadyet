@@ -2,16 +2,19 @@ name: Refresh Wikipedia cache
 
 on:
   schedule:
-    # Every Monday at 06:00 UTC.
-    - cron: "0 6 * * 1"
+    # Every day at 06:00 UTC.
+    - cron: "0 6 * * *"
   workflow_dispatch: {}
 
 jobs:
   refresh:
     runs-on: ubuntu-latest
+    # Only contents:write is needed to push a branch. We deliberately do NOT
+    # open a PR from the workflow, which would require the repo-wide "Allow
+    # GitHub Actions to create and approve pull requests" setting. Instead we
+    # push to a review branch and you open the PR by hand (one click in the UI).
     permissions:
       contents: write
-      pull-requests: write
     steps:
       - uses: actions/checkout@v4
 
@@ -25,15 +28,30 @@ jobs:
       - name: Rebuild Wikipedia cache
         run: npx tsx scripts/build-wiki-cache.ts
 
-      - name: Open PR if cache changed
-        uses: peter-evans/create-pull-request@v6
-        with:
-          commit-message: "chore: refresh Wikipedia cache"
-          title: "chore: refresh Wikipedia cache"
-          body: |
-            Automated weekly refresh of `data/wiki-cache.json` from Wikipedia and Wikidata.
+      - name: Push to review branch if data changed
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          # The cache's generatedAt timestamp changes on every run, so ignore
+          # it when deciding whether anything meaningful drifted. Count changed
+          # content lines (excluding diff headers and the timestamp line).
+          changed=$(git diff -U0 -- data/wiki-cache.json \
+            | grep '^[+-]' \
+            | grep -v '^[+-][+-]' \
+            | grep -vc '"generatedAt"' || true)
 
-            Compare the diff for newly-recorded death years, image URL changes, or other drift.
-          branch: chore/refresh-wiki-cache
-          delete-branch: true
-          add-paths: data/wiki-cache.json
+          if [ "$changed" -eq 0 ]; then
+            echo "No meaningful cache changes (only the timestamp moved). Nothing to push."
+            exit 0
+          fi
+
+          echo "$changed changed line(s) detected; pushing review branch."
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git checkout -B chore/refresh-wiki-cache
+          git add data/wiki-cache.json
+          git commit -m "chore: refresh Wikipedia cache"
+          git push --force origin chore/refresh-wiki-cache
+
+          echo "Pushed to chore/refresh-wiki-cache. Open a PR to review the drift:"
+          echo "https://github.com/${{ github.repository }}/compare/main...chore/refresh-wiki-cache?expand=1"
